@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import { useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 
 export const store = createContext();
@@ -20,7 +21,11 @@ const ContextApp = ({ children }) => {
         password,
       });
 
-      if (res.data.message == "acceso concedido") {
+      if (res.data.message !== null) {
+        // Guardar el token en el localStorage
+
+        localStorage.setItem("token", res.data);
+
         sucessdUser(res.data.message);
       } else {
         failedUser(res.data.message);

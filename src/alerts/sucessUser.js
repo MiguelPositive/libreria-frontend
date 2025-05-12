@@ -1,9 +1,9 @@
 import Swal from "sweetalert2";
 
-const sucessdUser = (text) => {
+const sucessdUser = () => {
   Swal.fire({
     imageUrl: "../public/imgs/pentagrama.png",
-    title: `✅  ${text}`,
+    title: "✅ acceso concedido",
     timer: 2000,
     showConfirmButton: false,
     customClass: {
