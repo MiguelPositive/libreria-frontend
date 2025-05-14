@@ -1,6 +1,5 @@
 import { createContext } from "react";
 import { useState } from "react";
-import { useEffect } from "react";
 import axios from "axios";
 
 export const store = createContext();
@@ -9,6 +8,7 @@ export const store = createContext();
 
 import failedUser from "../alerts/failedUser.js";
 import sucessdUser from "../alerts/sucessUser.js";
+import logoutUser from "../alerts/logoutUser.js";
 
 const ContextApp = ({ children }) => {
   const [user, setUser] = useState("");
@@ -21,20 +21,34 @@ const ContextApp = ({ children }) => {
         password,
       });
 
-      if (res.data.message !== null) {
-        // Guardar el token en el localStorage
-
+      console.log(res.data.message);
+      if (
+        res.data.message == "usuario no encontrado" ||
+        res.data.message == "contraseña incorrecta"
+      ) {
+        failedUser(res.data.message);
+      } else {
+        sucessdUser();
         localStorage.setItem("token", res.data);
 
-        sucessdUser(res.data.message);
-      } else {
-        failedUser(res.data.message);
+        setTimeout(() => {
+          window.location.replace("/dashboard");
+        }, 1500);
       }
     } catch (error) {
       console.log(
         `ocurrio un error en el front al intentar validar el usuario ${error}`
       );
     }
+  };
+
+  const logout = () => {
+    logoutUser();
+    localStorage.removeItem("token");
+
+    setTimeout(() => {
+      window.location.replace("/");
+    }, 600);
   };
 
   return (
@@ -45,6 +59,7 @@ const ContextApp = ({ children }) => {
         password,
         setPassword,
         validateUser,
+        logout,
       }}
     >
       {children}

@@ -6,6 +6,7 @@ import {
 import Login from "./assets/components/views/Login";
 
 import ContextApp from "./context/Context";
+import Dashboard from "./assets/components/views/Dashboard";
 
 function App() {
   // Verifica si el usuario está autenticado
@@ -21,19 +22,11 @@ function App() {
     },
     {
       path: "/dashboard",
-      element: isAuthenticated() ? (
-        <h1>Dashboard</h1>
-      ) : (
-        <Navigate to="/login" />
-      ),
+      element: isAuthenticated() ? <Dashboard /> : <Navigate to="/" />,
     },
     {
       path: "/*",
-      element: isAuthenticated() ? (
-        <Navigate to="/dashboard" />
-      ) : (
-        <h1>PAGINA NO ENCONTRADA</h1>
-      ),
+      element: isAuthenticated() ? <Navigate to="/dashboard" /> : <Login />,
     },
   ]);
 

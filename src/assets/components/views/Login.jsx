@@ -4,7 +4,7 @@ import LoginButton from "../buttons/LoginButton";
 
 const Login = () => {
   return (
-    <div className="h-screen w-screen flex items-center justify-center">
+    <div className="h-screen w-screen flex items-center justify-center animate__animated animate__fadeIn">
       <div
         className=" rounded-xl p-[1rem] border-[1px]  border-white/30 text-xl shadow-lg shadow-black/30"
         id="container-login"

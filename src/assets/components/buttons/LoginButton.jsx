@@ -8,13 +8,18 @@ const LoginButton = () => {
 
   const navigate = useNavigate();
 
-  const { user, password, validateUser } = useContext(store);
+  const { user, password, setUser, setPassword, validateUser } =
+    useContext(store);
 
   const sendData = () => {
+    console.log(user, password);
+
     validateUser(user, password);
+    setUser("");
+    setPassword("");
 
     if (token !== null) {
-      navigate("/dashboard");
+      window.location.replace("/dashboard");
     }
   };
 
