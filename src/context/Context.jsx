@@ -14,14 +14,15 @@ const ContextApp = ({ children }) => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
 
+  const [books, setBooks] = useState([]);
+
   const validateUser = async (user, password) => {
     try {
-      const res = await axios.post("http://192.168.56.1:4000/validate-user", {
+      const res = await axios.post("http://192.168.47.33:4000/validate-user", {
         user,
         password,
       });
 
-      console.log(res.data.message);
       if (
         res.data.message == "usuario no encontrado" ||
         res.data.message == "contraseña incorrecta"
@@ -51,6 +52,16 @@ const ContextApp = ({ children }) => {
     }, 600);
   };
 
+  const getBooks = async () => {
+    try {
+      const res = await axios.get("http://192.168.47.33:4000/getall-books");
+
+      setBooks(res.data);
+    } catch (error) {
+      console.log("ocurrio un error en el front al obtener los libros", error);
+    }
+  };
+
   return (
     <store.Provider
       value={{
@@ -60,6 +71,8 @@ const ContextApp = ({ children }) => {
         setPassword,
         validateUser,
         logout,
+        getBooks,
+        books,
       }}
     >
       {children}

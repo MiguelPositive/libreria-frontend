@@ -21,6 +21,7 @@ module.exports = {
       },
 
       screens: {
+        "300px": "300px",
         "400px": "400px",
         "510px": "510px",
         "450px": "450px",
@@ -28,5 +29,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: { "@tailwindcss/postcss": {} },
 };

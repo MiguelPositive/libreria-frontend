@@ -24,3 +24,7 @@ input::placeholder {
 .bg-header {
   background: linear-gradient(to right, #3b82f6, #9333ea);
 }
+
+.transition-custom {
+  transition: all 100ms;
+}
