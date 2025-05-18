@@ -15,6 +15,13 @@ const ContextApp = ({ children }) => {
   const [password, setPassword] = useState("");
 
   const [books, setBooks] = useState([]);
+  const [allBooks, setAllBooks] = useState([]);
+
+  const [students, setStudents] = useState([]);
+
+  const [openModal, setOpenModal] = useState(false);
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   const validateUser = async (user, password) => {
     try {
@@ -57,9 +64,33 @@ const ContextApp = ({ children }) => {
       const res = await axios.get("http://192.168.47.33:4000/getall-books");
 
       setBooks(res.data);
+      setAllBooks(res.data);
     } catch (error) {
       console.log("ocurrio un error en el front al obtener los libros", error);
     }
+  };
+
+  const handleclickChangeModal = () => {
+    setOpenModal(!openModal);
+  };
+
+  const getStudents = async () => {
+    const res = await axios.get("http://192.168.47.33:4000/getall-students");
+    setStudents(res.data);
+
+    try {
+    } catch (error) {
+      console.log(
+        "ocurrio un error en el front al obtener los estudiantes",
+        error
+      );
+    }
+  };
+  const filteredBooks = (term) => {
+    const result = allBooks.filter((book) =>
+      book.title.toLowerCase().includes(term.toLowerCase())
+    );
+    setBooks(result);
   };
 
   return (
@@ -72,7 +103,14 @@ const ContextApp = ({ children }) => {
         validateUser,
         logout,
         getBooks,
+        getStudents,
+        students,
         books,
+        openModal,
+        handleclickChangeModal,
+        filteredBooks,
+        searchTerm,
+        setSearchTerm,
       }}
     >
       {children}

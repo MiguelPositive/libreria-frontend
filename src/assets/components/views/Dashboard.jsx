@@ -6,13 +6,14 @@ import { store } from "../../../context/Context";
 import LogOut from "../headers/LogOut";
 import ShowBooks from "../../../table/ShowBooks";
 import LendBookButton from "../buttons/LendBookButton";
+import SearchInput from "../inputs/SearchInput";
 
 //MUI
 
 import { Collapse } from "@mui/material";
 
 const Dashboard = () => {
-  const { getBooks, books } = useContext(store);
+  const { getBooks, getStudents, books } = useContext(store);
 
   const [idTemp, setIdTemp] = useState("");
 
@@ -22,6 +23,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     getBooks();
+    getStudents();
   }, []);
 
   return (
@@ -29,16 +31,19 @@ const Dashboard = () => {
       <LogOut />
 
       <div className="p-[1rem] text-2xl">
-        <div className="bg-black/50 cursor-pointer mt-[5rem] rounded-lg">
+        <div className="flex text-xl" id="header-options-dashboard">
+          <SearchInput />
+        </div>
+        <div className="bg-black/50 cursor-pointer mt-[2rem] rounded-lg">
           {books.map((book) => (
             <div key={book._id}>
               <div
-                className="flex justify-between p-[1rem] b "
+                className="flex justify-between p-[1rem] "
                 onClick={() => {
                   handleClick(book._id);
                 }}
               >
-                <p>{book.title}</p>
+                <p className="mr-[0.8rem]">{book.title}</p>
 
                 <div className="flex">
                   <div className="mr-[0.5rem]">
@@ -56,7 +61,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <Collapse
-                in={idTemp == book._id ? true : false}
+                in={idTemp == book._id}
                 timeout="auto"
                 unmountOnExit
                 className=""
