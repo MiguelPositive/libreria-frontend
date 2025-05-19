@@ -28,3 +28,30 @@ input::placeholder {
 .transition-custom {
   transition: all 100ms;
 }
+
+/* Scroll personalizado para navegadores WebKit */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1e2f; /* Fondo oscuro suave */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b82f6; /* Azul moderno (similar a Tailwind blue-500) */
+  border-radius: 10px;
+  box-shadow: 0 0 8px #3b82f6aa; /* Sombra suave */
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #60a5fa; /* Azul un poco más claro al hacer hover */
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 #1e1e2f;
+}

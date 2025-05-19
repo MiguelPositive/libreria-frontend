@@ -3,11 +3,15 @@ import { useContext } from "react";
 import { store } from "../../../context/Context";
 import { useState } from "react";
 
-const LendBookButton = ({ available }) => {
-  const { handleclickChangeModal } = useContext(store);
+const LendBookButton = ({ available, book }) => {
+  const { setBookTemp } = useContext(store);
 
   const handleClick = () => {
-    alert("vista prestar libro");
+    localStorage.setItem("bookTemp", JSON.stringify(book));
+
+    setTimeout(() => {
+      window.location.replace("/lend-book");
+    }, 100);
   };
 
   return (

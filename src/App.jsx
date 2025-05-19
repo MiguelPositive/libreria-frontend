@@ -7,6 +7,7 @@ import Login from "./assets/components/views/Login";
 
 import ContextApp from "./context/Context";
 import Dashboard from "./assets/components/views/Dashboard";
+import LendBook from "./assets/components/views/LendBook";
 
 function App() {
   // Verifica si el usuario está autenticado
@@ -23,6 +24,11 @@ function App() {
     {
       path: "/dashboard",
       element: isAuthenticated() ? <Dashboard /> : <Navigate to="/" />,
+    },
+
+    {
+      path: "lend-book",
+      element: isAuthenticated() ? <LendBook /> : <Navigate to="/" />,
     },
     {
       path: "/*",

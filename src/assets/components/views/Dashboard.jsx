@@ -13,12 +13,19 @@ import SearchInput from "../inputs/SearchInput";
 import { Collapse } from "@mui/material";
 
 const Dashboard = () => {
-  const { getBooks, getStudents, books } = useContext(store);
+  const { getBooks, getStudents, books, setSearchBook, filteredBooks } =
+    useContext(store);
 
   const [idTemp, setIdTemp] = useState("");
 
   const handleClick = (id) => {
     setIdTemp((prevId) => (prevId === id ? "" : id));
+  };
+
+  const handleChange = (e) => {
+    const term = e.target.value.toLowerCase();
+    setSearchBook(term); // Guarda el término de búsqueda
+    filteredBooks(term); // Ejecuta la búsqueda
   };
 
   useEffect(() => {
@@ -32,7 +39,12 @@ const Dashboard = () => {
 
       <div className="p-[1rem] text-2xl">
         <div className="flex text-xl" id="header-options-dashboard">
-          <SearchInput />
+          <SearchInput
+            placeholder={"NOMBRE DEL LIBRO"}
+            handleChange={(e) => {
+              handleChange(e);
+            }}
+          />
         </div>
         <div className="bg-black/50 cursor-pointer mt-[2rem] rounded-lg">
           {books.map((book) => (
@@ -47,7 +59,7 @@ const Dashboard = () => {
 
                 <div className="flex">
                   <div className="mr-[0.5rem]">
-                    <LendBookButton available={book.available} />
+                    <LendBookButton available={book.available} book={book} />
                   </div>
                   <div>
                     <i
@@ -66,7 +78,7 @@ const Dashboard = () => {
                 unmountOnExit
                 className=""
               >
-                <div className="p-[1rem] bg-amber-600">
+                <div className="p-[1rem] bg-cyan-950">
                   <ShowBooks label={"Autor"} text={book.author} />
                   <ShowBooks label={"Categoria"} text={book.category} />
                   <ShowBooks label={"Disponible"} text={book.available} />
