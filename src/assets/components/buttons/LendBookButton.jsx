@@ -3,8 +3,8 @@ import { useContext } from "react";
 import { store } from "../../../context/Context";
 import { useState } from "react";
 
-const LendBookButton = ({ available, book }) => {
-  const { setBookTemp } = useContext(store);
+const LendBookButton = ({ book }) => {
+  const { lendBook } = useContext(store);
 
   const handleClick = () => {
     localStorage.setItem("bookTemp", JSON.stringify(book));
@@ -16,9 +16,7 @@ const LendBookButton = ({ available, book }) => {
 
   return (
     <>
-      {available ? (
-        <Button color={"bg-green-700"} text={"Prestar"} onClick={handleClick} />
-      ) : null}
+      <Button color={"bg-green-700"} text={"Prestar"} onClick={handleClick} />
     </>
   );
 };

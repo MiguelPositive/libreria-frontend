@@ -29,7 +29,7 @@ const ContextApp = ({ children }) => {
 
   const validateUser = async (user, password) => {
     try {
-      const res = await axios.post("http://192.168.47.33:4000/validate-user", {
+      const res = await axios.post("http://192.168.1.161:4000/validate-user", {
         user,
         password,
       });
@@ -65,7 +65,7 @@ const ContextApp = ({ children }) => {
 
   const getBooks = async () => {
     try {
-      const res = await axios.get("http://192.168.47.33:4000/getall-books");
+      const res = await axios.get("http://192.168.1.161:4000/getall-books");
 
       setBooks(res.data);
       setAllBooks(res.data);
@@ -75,7 +75,7 @@ const ContextApp = ({ children }) => {
   };
 
   const getStudents = async () => {
-    const res = await axios.get("http://192.168.47.33:4000/getall-students");
+    const res = await axios.get("http://192.168.1.161:4000/getall-students");
     setStudents(res.data);
     setAllStudents(res.data);
 
@@ -106,6 +106,24 @@ const ContextApp = ({ children }) => {
     setStudents(result);
   };
 
+  const lendBook = async (_id, infoStudent, departureDate, available) => {
+    try {
+      console.log(_id);
+      console.log(infoStudent);
+      console.log(departureDate);
+      console.log(available);
+
+      await axios.post("http://192.168.1.161:4000/update-book", {
+        _id,
+        infoStudent,
+        departureDate,
+        available,
+      });
+    } catch (error) {
+      console.log("oucurrio un error en el front al prestar el libro", error);
+    }
+  };
+
   return (
     <store.Provider
       value={{
@@ -130,6 +148,7 @@ const ContextApp = ({ children }) => {
         studenSelected,
         studentTemp,
         setStudentTemp,
+        lendBook,
       }}
     >
       {children}

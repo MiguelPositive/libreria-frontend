@@ -11,6 +11,7 @@ import SearchInput from "../inputs/SearchInput";
 //MUI
 
 import { Collapse } from "@mui/material";
+import InUseBook from "../buttons/InUseBook";
 
 const Dashboard = () => {
   const { getBooks, getStudents, books, setSearchBook, filteredBooks } =
@@ -31,7 +32,7 @@ const Dashboard = () => {
   useEffect(() => {
     getBooks();
     getStudents();
-  }, []);
+  }, [location]);
 
   return (
     <div className="animate__animated animate__fadeIn">
@@ -59,7 +60,11 @@ const Dashboard = () => {
 
                 <div className="flex">
                   <div className="mr-[0.5rem]">
-                    <LendBookButton available={book.available} book={book} />
+                    {book.available ? (
+                      <LendBookButton book={book} />
+                    ) : (
+                      <InUseBook />
+                    )}
                   </div>
                   <div>
                     <i
