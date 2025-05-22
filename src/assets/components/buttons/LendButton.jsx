@@ -6,6 +6,8 @@ const LendButton = () => {
   const { studentTemp, lendBook } = useContext(store);
 
   const handleClick = () => {
+    const bookTemp = JSON.parse(localStorage.getItem("bookTemp"));
+
     const fecha = new Date();
     const dia = String(fecha.getDate()).padStart(2, "0");
     const mes = String(fecha.getMonth() + 1).padStart(2, "0"); // ¡Ojo! Los meses van de 0 a 11
@@ -15,7 +17,7 @@ const LendButton = () => {
 
     console.log(studentTemp._id);
 
-    lendBook(studentTemp._id, studentTemp, fechaFormateada, false);
+    lendBook(bookTemp._id, studentTemp, fechaFormateada, false);
   };
 
   return (

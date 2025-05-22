@@ -55,3 +55,7 @@ input::placeholder {
   scrollbar-width: thin;
   scrollbar-color: #3b82f6 #1e1e2f;
 }
+
+.bg-gradient {
+  background: linear-gradient(135deg, #f43f5e, #f97316);
+}
